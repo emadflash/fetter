@@ -1,0 +1,25 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.navbar .site-title {
+    /* border: 1px solid red; */
+
+}
+
+.navbar .site-title a {
+    text-decoration: none;
+}
+
+.navbar .site-navigation {
+    display: flex;
+    margin-left: 85%;
+    justify-content: left;
+    /* border: 1px solid red; */
+}
+
+.navbar .site-navigation a {
+    text-decoration: none;
+}
