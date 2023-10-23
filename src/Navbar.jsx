@@ -1,24 +1,29 @@
 import "./Navbar.css";
 import { useContext } from 'react';
-import { Auth } from "./Auth";
+import AuthContext from "./Auth";
 
 function Navbar(props) {
-    const [name, setName] = useContext(Auth);
-    console.log(name);
+    const { auth, setAuth } = useContext(AuthContext);
+    const isLoggedIn = (!auth.username) ? false : true;
 
-    if (props.isSignUpPage) {
+    if (isLoggedIn) {
         return (
-            <div class="navbar">
-                <div class='site-title'>connect.org</div>
+            <div className="navbar">
+                <div className='site-title'>
+                    <a href='./'> connect.org </a>
+                </div>
+                <div className="site-navigation">
+                    {auth.username}
+                </div>
             </div>
         )
     } else {
         return (
-            <div class="navbar">
-                <div class='site-title'>
+            <div className="navbar">
+                <div className='site-title'>
                     <a href='./'> connect.org </a>
                 </div>
-                <div class='site-navigation'>
+                <div className='site-navigation'>
                     <a href="./login">sign in</a>
                 </div>
             </div>

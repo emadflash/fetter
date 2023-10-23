@@ -1,10 +1,13 @@
 import Navbar from "./Navbar";
 import { useState } from "react";
 import './form.css';
+import axios from './api/axios';
+import { Navigate } from "react-router";
+import useAuth from './hooks/useAuth';
 
-function Form() {
+function Form(props) {
     const [formData, setFormData] = useState({
-        userName: "",
+        username: "",
         password: "",
     });
 
@@ -17,9 +20,33 @@ function Form() {
         })
     };
 
-    const onSubmit = (event) => {
+    const { setAuth } = useAuth();
+
+    const onSubmit = async (event) => {
         event.preventDefault();
-        console.log(formData);
+        try {
+            console.log(formData)
+            const response = await axios.post("/api/user/login",
+                JSON.stringify(formData),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true,
+                }
+            );
+
+            const accessToken = response?.data?.accessToken;
+
+            setAuth({ username: formData.username, accessToken: accessToken });
+            setFormData({
+                username: "",
+                password: ""
+            });
+
+            props.setIsLoggedIn(true)
+            return;
+        } catch (err) {
+            console.log(err.message);
+        }
     }
 
     return (
@@ -32,8 +59,8 @@ function Form() {
                     <
                         input type='text'
                         onChange={onChange}
-                        name="userName"
-                        value={formData.userName}
+                        name="username"
+                        value={formData.username}
                     />
                 </div>
 
@@ -60,10 +87,14 @@ function Form() {
 }
 
 function Login() {
+    const [ isLoggedIn, setIsLoggedIn]  = useState(false);
+    if (isLoggedIn)
+        return <Navigate to="/"/>;
+
     return (
         <div>
             <Navbar />
-            <Form />
+            <Form setIsLoggedIn={setIsLoggedIn}/>
         </div>
     )
 }

@@ -1,9 +1,14 @@
 import { createContext, useState } from "react";
 
-export const Auth = createContext();
+const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [name, setName] = useState("madflash19");
-    return <Auth.Provider value={[name, setName]}>{children}</Auth.Provider>;
-};
+    const [auth, setAuth] = useState({});
+    return (
+        <AuthContext.Provider value={{ auth, setAuth }}>
+            {children}
+        </AuthContext.Provider >
+    )
+}
+
+export default AuthContext;
