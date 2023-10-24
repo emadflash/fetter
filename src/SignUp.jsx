@@ -1,18 +1,21 @@
 import Navbar from "./Navbar";
 import { useState } from "react";
 import './form.css';
-
+import axios from "./api/axios";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import { Col, Container, Form, FormControl, FormLabel, Row } from "react-bootstrap";
 import { Button } from "react-bootstrap";
+import { Navigate } from "react-router";
 
-const SignUpForm = () => {
+const SignUpForm = (props) => {
     const [formData, setFormData] = useState({
         username: "",
         email: "",
         password: "",
     });
+
+    const [failedAttempt, setFailedAttempt] = useState(false);
 
     const onChange = (event) => {
         setFormData(prevFormData => {
@@ -23,9 +26,22 @@ const SignUpForm = () => {
         })
     };
 
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault();
-        console.log(formData);
+        try {
+            const response = await axios.post("/api/user/signup",
+                JSON.stringify(formData),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true,
+                }
+            );
+            props.setHasRegistered(true);
+            return;
+        } catch (err) {
+            setFailedAttempt(true);
+            console.log(err.message);
+        }
     }
 
     const form = () => {
@@ -83,6 +99,21 @@ const SignUpForm = () => {
                             </Col>
                         </Row>
                     </Form>
+
+
+
+                    {/* FOOTER */}
+                    {
+                        (failedAttempt)
+
+                        ? (
+                            <Row className="mb-2 text-center justify-content-center">
+                            <p className="text-danger"> Error while submitting signup form</p>
+                            </Row>
+                        )
+
+                        : <div></div>
+                    }
                 </Row>
             </Container>
         );
@@ -92,10 +123,15 @@ const SignUpForm = () => {
 }
 
 const SignUpPage = () => {
+    const [hasRegistered, setHasRegistered] = useState(false);
+    if (hasRegistered) {
+        return <Navigate to="/" />;
+    }
+
     return (
         <div>
             <Navbar />
-            <SignUpForm />
+            <SignUpForm setHasRegistered={setHasRegistered}/>
         </div>
     )
 }

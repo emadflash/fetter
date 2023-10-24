@@ -116,8 +116,9 @@ const LoginForm = (props) => {
 
 const LoginPage = () => {
     const [isLoggedIn, setIsLoggedIn]  = useState(false);
-    if (isLoggedIn)
+    if (isLoggedIn) {
         return <Navigate to="/"/>;
+    }
 
     return (
         <div>
