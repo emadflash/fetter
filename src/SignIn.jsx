@@ -5,7 +5,12 @@ import axios from './api/axios';
 import { Navigate } from "react-router";
 import useAuth from './hooks/useAuth';
 
-function Form(props) {
+import 'bootstrap/dist/css/bootstrap.css';
+import { Col, Container, Form, FormControl, FormLabel, Row } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+
+
+const LoginForm = (props) => {
     const [formData, setFormData] = useState({
         username: "",
         password: "",
@@ -49,54 +54,77 @@ function Form(props) {
         }
     }
 
-    return (
-        <div className="form">
-            <div className="form--title">Sign In</div>
+    const form = () => {
+        return (
+            <Container
+                className="border bg-body-secondary mx-auto my-4">
+                <Row className="my-3"><h3>Sign In</h3></Row>
 
-            <form onSubmit={onSubmit} className="form--content">
-                <div className="form--item">
-                    <div className="form--item-label">username</div>
-                    <
-                        input type='text'
-                        onChange={onChange}
-                        name="username"
-                        value={formData.username}
-                    />
-                </div>
+                <Row>
+                    <Form onSubmit={onSubmit} className="pb-2">
 
-                <div className="form--item">
-                    <div className="form--item-label">password</div>
-                    <
-                        input type='password'
-                        onChange={onChange}
-                        value={formData.password}
-                        name="password"
-                    />
-                </div>
 
-                <div className="form--item">
-                    <button className="form--button">LOGIN</button>
-                </div>
 
-                <div className="form--footer">
-                    <i>Don't have an account ? <a href="/signup"> Sign Up</a></i>
-                </div>
-            </form>
-        </div>
-    )
+                        {/* USERNAME FIELD */}
+                        <Form.Group>
+                            <FormLabel>username</FormLabel>
+                            <FormControl
+                                type="text"
+                                name="username"
+                                onChange={onChange}
+                                value={formData.username}
+                            />
+                        </Form.Group>
+
+
+
+                        {/* PASSWORD FIELD */}
+                        <Form.Group>
+                            <FormLabel>password</FormLabel>
+                            <FormControl
+                                type="password"
+                                name="password"
+                                onChange={onChange}
+                                value={formData.password}
+                            />
+                        </Form.Group>
+
+
+
+                        {/* SUBMIT BUTTON */}
+                        <Row className="text-center justify-content-center">
+                            <Col>
+                                <Button className="m-2" variant="primary" type="submit">LOGIN</Button>
+                            </Col>
+                        </Row>
+                    </Form>
+                </Row>
+
+
+
+                {/* FOOTER */}
+                <Row className="mb-2 text-center justify-content-center">
+                    <Col><a href="/signup">Sign Up</a></Col>
+                    <Col><a href="#">Password Reset</a></Col>
+                </Row>
+            </Container>
+        );
+    }
+
+    return form();
 }
 
-function Login() {
-    const [ isLoggedIn, setIsLoggedIn]  = useState(false);
+const LoginPage = () => {
+    const [isLoggedIn, setIsLoggedIn]  = useState(false);
     if (isLoggedIn)
         return <Navigate to="/"/>;
 
     return (
         <div>
             <Navbar />
-            <Form setIsLoggedIn={setIsLoggedIn}/>
+            <LoginForm setIsLoggedIn={setIsLoggedIn}/>
         </div>
     )
 }
 
-export default Login;
+export default LoginPage;

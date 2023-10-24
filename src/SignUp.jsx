@@ -2,9 +2,14 @@ import Navbar from "./Navbar";
 import { useState } from "react";
 import './form.css';
 
-function Form() {
+
+import 'bootstrap/dist/css/bootstrap.css';
+import { Col, Container, Form, FormControl, FormLabel, Row } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+
+const SignUpForm = () => {
     const [formData, setFormData] = useState({
-        userName: "",
+        username: "",
         email: "",
         password: "",
     });
@@ -23,56 +28,76 @@ function Form() {
         console.log(formData);
     }
 
-    return (
-        <div className="form">
-            <div className="form--title">Sign Up</div>
+    const form = () => {
+        return (
+            <Container
+                className="border bg-body-secondary mx-auto my-4">
+                <Row className="my-3"><h3>Sign Up</h3></Row>
 
-            <form onSubmit={onSubmit} className="form--content">
-                <div className="form--item">
-                    <div className="form--item-label">username</div>
-                    <
-                        input type='text'
-                        onChange={onChange}
-                        name="userName"
-                        value={formData.userName}
-                    />
-                </div>
+                <Row>
+                    <Form onSubmit={onSubmit} className="pb-2">
 
-                <div className="form--item">
-                    <div className="form--item-label">email</div>
-                    <
-                        input type='text'
-                        onChange={onChange}
-                        value={formData.email}
-                        name="email"
-                    />
-                </div>
 
-                <div className="form--item">
-                    <div className="form--item-label">password</div>
-                    <
-                        input type='password'
-                        onChange={onChange}
-                        value={formData.password}
-                        name="password"
-                    />
-                </div>
 
-                <div className="form--item">
-                    <button className="form--button">SIGN UP</button>
-                </div>
-            </form>
-        </div>
-    )
+                        {/* USERNAME FIELD */}
+                        <Form.Group>
+                            <FormLabel>username</FormLabel>
+                            <FormControl
+                                type="text"
+                                name="username"
+                                onChange={onChange}
+                                value={formData.username}
+                            />
+                        </Form.Group>
+
+
+                        {/* EMAIL FIELD */}
+                        <Form.Group>
+                            <FormLabel>email</FormLabel>
+                            <FormControl
+                                type="text"
+                                name="email"
+                                onChange={onChange}
+                                value={formData.email}
+                            />
+                        </Form.Group>
+
+
+                        {/* PASSWORD FIELD */}
+                        <Form.Group>
+                            <FormLabel>password</FormLabel>
+                            <FormControl
+                                type="password"
+                                name="password"
+                                onChange={onChange}
+                                value={formData.password}
+                            />
+                        </Form.Group>
+
+
+
+                        {/* SUBMIT BUTTON */}
+                        <Row className="text-center justify-content-center">
+                            <Col>
+                                <Button className="m-2" variant="primary" type="submit">SIGN UP</Button>
+                            </Col>
+                        </Row>
+                    </Form>
+                </Row>
+            </Container>
+        );
+    }
+
+    return form();
 }
 
-function SignUp() {
+const SignUpPage = () => {
     return (
         <div>
             <Navbar />
-            <Form />
+            <SignUpForm />
         </div>
     )
 }
 
-export default SignUp;
+export default SignUpPage;
