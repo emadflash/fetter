@@ -9,7 +9,7 @@ const verifyJWT = (req, res, next) => {
         process.env.ACCESS_TOKEN_SECRET,
         (err, decode) => {
             if (err) return res.sendStatus(403); // forbidden
-            req.username = decode.username;
+            req.body.username = decode.username;
             next();
         }
     );

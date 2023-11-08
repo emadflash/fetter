@@ -47,6 +47,7 @@ const SignUpForm = (props) => {
     const form = () => {
         return (
             <Container
+                style={{width: '50%'}}
                 className="border bg-body-secondary mx-auto my-4">
                 <Row className="my-3"><h3>Sign Up</h3></Row>
 

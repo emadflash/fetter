@@ -19,12 +19,15 @@ const WhenLoggedIn = () => {
                 <Navbar.Toggle />
 
                 <Navbar.Collapse className="justify-content-end">
+                    <Button href='/post' className="mx-1" variant="secondary">Create Post</Button>
+
                     <Dropdown>
                         <Dropdown.Toggle variant="success" id="dropdown-basic">
                             {auth.username}
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
+                            <Dropdown.Item href={`/profile/${auth.username}`}>Profile</Dropdown.Item>
                             <Dropdown.Item href="/api/user/logout">Logout</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>

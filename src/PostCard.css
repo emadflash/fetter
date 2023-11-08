@@ -1,0 +1,27 @@
+.shrink-button {
+    padding: 0;
+    width: 15px;
+    height: 30px;
+    border: none;
+    margin-left: 10px;
+}
+
+.unvoted {
+    background: white;
+    color: black;
+}
+
+.unvoted :hover {
+    color: #171616;
+    background-color: #ebecee;
+    border-color: #565e64;
+}
+
+.voted {
+    background: #6f2da8;
+    color: white;
+}
+
+.voted :hover {
+    color: white;
+}

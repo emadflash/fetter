@@ -23,13 +23,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 
+// These routes don't require auth token
 app.use('/api/user', require('./routes/user'));
 app.use('/api/refresh', require('./routes/refresh'));
+app.use('/api/public', require('./routes/public'));
 
+// These routes require auth token
 const verifyJWT = require('./middleware/verifyJWT');
 app.get('/api/ping', verifyJWT, (req, res) => {
     res.send("pong!")
 })
+app.use('/api/post', verifyJWT, require('./routes/post'));
 
 mongoose.connection.once('open', () => {
     console.log('Connected to MongoDB');

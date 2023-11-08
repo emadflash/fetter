@@ -1,0 +1,5 @@
+.dot-separator {
+  border-left: 1px solid #000; /* Customize border properties as needed */
+  height: 15px; /* Customize the separator height */
+  margin: 0 10px; /* Customize the margin around the separator */
+}
