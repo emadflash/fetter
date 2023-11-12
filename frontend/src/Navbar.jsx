@@ -15,7 +15,7 @@ const WhenLoggedIn = () => {
     return (
         <Navbar className="bg-body-tertiary">
             <Container>
-                <Navbar.Brand href="/">connect.org</Navbar.Brand>
+                <Navbar.Brand href="/">fetter.com</Navbar.Brand>
                 <Navbar.Toggle />
 
                 <Navbar.Collapse className="justify-content-end">
@@ -41,7 +41,7 @@ const WhenLoggedOut = () => {
     return (
         <Navbar className="bg-body-tertiary">
             <Container>
-                <Navbar.Brand href="/">connect.org</Navbar.Brand>
+                <Navbar.Brand href="/">fetter.com</Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                     <Button href="/login">sign in</Button>
